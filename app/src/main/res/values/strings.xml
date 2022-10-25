@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Казань Поёт</string>
+    <string name="_64kb">64kb</string>
+    <string name="_128kb">128kb</string>
+    <string name="_192kb">192kb</string>
+    <string name="_320kb">320kb</string>
+</resources>

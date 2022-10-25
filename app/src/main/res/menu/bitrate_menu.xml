@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/_64kb"
+        android:title="@string/_64kb"
+        />
+    <item
+        android:id="@+id/_128kb"
+        android:title="@string/_128kb"
+        />
+    <item
+        android:id="@+id/_192kb"
+        android:title="@string/_192kb"
+        />
+    <item
+        android:id="@+id/_320kb"
+        android:title="@string/_320kb"
+        />
+</menu>
