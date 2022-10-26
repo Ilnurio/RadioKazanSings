@@ -60,6 +60,18 @@ class MainActivity : AppCompatActivity(), Player.Listener {
             binding.tvSongs.text = "Pause"
         }
 
+        binding.imPlay.setOnClickListener {
+            player.playWhenReady = !player.playWhenReady
+            binding.imPlay.setImageResource(
+                if (player.playWhenReady) {
+                    R.drawable.image_pause
+                } else {
+                    R.drawable.image_play
+                }
+
+            )
+        }
+
         if (savedInstanceState != null){
             savedInstanceState.getInt("MediaItem").let { restoredMedia ->
                 val seekTime = savedInstanceState.getLong("SeekTime")
