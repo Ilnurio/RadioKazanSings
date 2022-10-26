@@ -4,4 +4,7 @@
     <string name="_128kb">128kb</string>
     <string name="_192kb">192kb</string>
     <string name="_320kb">320kb</string>
+    <string name="name_toolbar">Казань Поет</string>
+    <string name="_1">Дорожка 1</string>
+    <string name="loading">...</string>
 </resources>

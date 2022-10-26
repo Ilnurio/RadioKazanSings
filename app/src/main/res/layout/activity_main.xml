@@ -6,55 +6,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
+    android:textAlignment="center"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/custom_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/custom"
+        android:elevation="30dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:theme="@style/Theme.RadioKazanSings.ToolBarStyle">
+
+
+        <TextView
+            android:id="@+id/tv_nameToolBar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:fontFamily="serif"
+            android:gravity="center_vertical"
+            android:text="@string/name_toolbar"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <com.google.android.exoplayer2.ui.PlayerView
-        android:id="@+id/PlayView"
+        android:id="@+id/playView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
-        android:background="@null"
+        android:background="@color/custom"
         app:controller_layout_id="@layout/custom_controller"
+        app:use_controller="true"
+        app:surface_type="surface_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_songs"
-        android:alpha="0.1" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_songs"/>
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="220dp"
         android:layout_height="220dp"
         android:layout_marginTop="150dp"
+        android:background="@drawable/logo"
         android:elevation="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/logo" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_songs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Дорожка 1"
+        android:text="@string/loading"
         android:textColor="@color/white"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/im_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/image_play"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_songs"/>
-
-
+        app:layout_constraintTop_toBottomOf="@id/tv_songs"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
