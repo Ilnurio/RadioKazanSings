@@ -1,21 +1,18 @@
 package com.example.radiokazansings
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.example.radiokazansings.databinding.ActivityMainBinding
 import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.ui.PlayerView
-import com.google.android.exoplayer2.ui.StyledPlayerView
 
 class MainActivity : AppCompatActivity(), Player.Listener {
     lateinit var binding: ActivityMainBinding
     private lateinit var player: ExoPlayer
-    private lateinit var playerView: PlayerView
     private lateinit var titleSongs: TextView
     private lateinit var customToolbar: Toolbar
 
@@ -28,6 +25,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
         setContentView(binding.root)
         titleSongs = binding.tvSongs
         customToolbar = binding.customToolbar
+        customToolbar.inflateMenu(R.menu.share_menu)
         customToolbar.inflateMenu(R.menu.bitrate_menu)
         customToolbar.setOnMenuItemClickListener{
             when (it.itemId){
@@ -43,6 +41,20 @@ class MainActivity : AppCompatActivity(), Player.Listener {
                 R.id._320kb -> {
                     Toast.makeText(this, "320kb", Toast.LENGTH_SHORT).show()
                 }
+                R.id.share -> {
+                    val sharingIntent = Intent(Intent.ACTION_SEND)
+                    // type of the content to be shared
+                    sharingIntent.type = "text/plain"
+                    // Body of the content
+                    val shareBody = getString(R.string.share_body)
+                    // subject of the content. you can share anything
+                    val shareSubject = R.drawable.logo
+                    // passing body of the content
+                    sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
+                    // passing subject of the content
+                    sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject)
+                    startActivity(Intent.createChooser(sharingIntent, "Share using"))
+                }
             }
             return@setOnMenuItemClickListener true
         }
@@ -50,25 +62,15 @@ class MainActivity : AppCompatActivity(), Player.Listener {
         setUpPlayer()
         addStreamUrl()
 
-        binding.playView.setOnClickListener{
-            player.play()
-            binding.tvSongs.text = "is Playing"
-        }
-
-        binding.playView.setOnClickListener{
-            player.stop()
-            binding.tvSongs.text = "Pause"
-        }
-
         binding.imPlay.setOnClickListener {
             player.playWhenReady = !player.playWhenReady
+            binding.tvSongs.text = if (player.playWhenReady) "Is Playing" else "Paused"
             binding.imPlay.setImageResource(
                 if (player.playWhenReady) {
                     R.drawable.image_pause
                 } else {
                     R.drawable.image_play
                 }
-
             )
         }
 
@@ -88,8 +90,6 @@ class MainActivity : AppCompatActivity(), Player.Listener {
 
     private fun setUpPlayer(){
         player = ExoPlayer.Builder(this).build()
-        playerView = binding.playView
-        playerView.player = player
         player.addListener(this)
     }
 
@@ -102,7 +102,6 @@ class MainActivity : AppCompatActivity(), Player.Listener {
     override fun onMediaMetadataChanged(mediaMetadata: MediaMetadata) {
         super.onMediaMetadataChanged(mediaMetadata)
     }
-
 }
 
 

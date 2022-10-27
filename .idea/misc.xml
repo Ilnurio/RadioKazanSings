@@ -10,9 +10,11 @@
         <entry key="..\:/Users/Samsung/AndroidStudioProjects/RadioKazanSings/app/src/main/res/drawable/image_play.xml" value="0.1295" />
         <entry key="..\:/Users/Samsung/AndroidStudioProjects/RadioKazanSings/app/src/main/res/font/.xml" value="0.234375" />
         <entry key="..\:/Users/Samsung/AndroidStudioProjects/RadioKazanSings/app/src/main/res/font/aguafina_script.xml" value="0.234375" />
+        <entry key="..\:/Users/Samsung/AndroidStudioProjects/RadioKazanSings/app/src/main/res/font/font.xml" value="0.1" />
         <entry key="..\:/Users/Samsung/AndroidStudioProjects/RadioKazanSings/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Samsung/AndroidStudioProjects/RadioKazanSings/app/src/main/res/layout/custom_controller.xml" value="0.5" />
-        <entry key="..\:/Users/Samsung/AndroidStudioProjects/RadioKazanSings/app/src/main/res/menu/bitrate_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Samsung/AndroidStudioProjects/RadioKazanSings/app/src/main/res/menu/bitrate_menu.xml" value="0.33" />
+        <entry key="..\:/Users/Samsung/AndroidStudioProjects/RadioKazanSings/app/src/main/res/menu/share_menu.xml" value="0.25" />
       </map>
     </option>
   </component>

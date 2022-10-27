@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:fontFamily="serif"
+            android:fontFamily="@font/montserrat_extrabold"
             android:gravity="center_vertical"
             android:text="@string/name_toolbar"
             android:textColor="@color/white"
@@ -39,26 +39,12 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <com.google.android.exoplayer2.ui.PlayerView
-        android:id="@+id/playView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/custom"
-        app:surface_type="surface_view"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_songs"/>
-
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:background="@drawable/logo"
-        android:elevation="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -80,10 +66,11 @@
         android:id="@+id/im_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:src="@drawable/image_play"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_songs"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_songs" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
