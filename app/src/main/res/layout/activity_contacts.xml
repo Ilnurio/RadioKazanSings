@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".Contacts">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/custom_toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/custom"
+        android:elevation="30dp"
+        android:gravity="center"
+        android:theme="@style/Theme.RadioKazanSings.ToolBarStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_nameToolBar2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_extrabold"
+            android:gravity="center_vertical"
+            android:text="@string/Contacts"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/ib_backToMainActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/custom"
+            android:minWidth="48dp"
+            android:onClick="onClickGoMain"
+            android:src="@drawable/ic_backtomainactivity"
+            tools:layout_editor_absoluteX="16dp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/tv_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:drawableLeft="@drawable/ic_link"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/montserrat_extrabold"
+        android:text="@string/link"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/custom_toolbar2" />
+
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:drawableLeft="@drawable/ic_email"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/montserrat_extrabold"
+        android:text="@string/email"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_link"
+        app:layout_constraintTop_toBottomOf="@+id/tv_link" />
+
+    <TextView
+        android:id="@+id/tv_VK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:drawableLeft="@drawable/ic_vk"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/montserrat_extrabold"
+        android:text="@string/vk"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_email"
+        app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Группа в tg"
+        android:drawableLeft="@drawable/ic_tg"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/montserrat_extrabold"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_VK"
+        app:layout_constraintTop_toBottomOf="@+id/tv_VK" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

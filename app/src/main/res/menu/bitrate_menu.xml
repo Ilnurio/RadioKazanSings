@@ -1,21 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    
+
     <item
-        android:id="@+id/_64kb"
+        android:id="@+id/share"
+        android:title="@string/share"
+        android:icon="@drawable/ic_share"
+        app:showAsAction="always"
+        android:orderInCategory="2"
+        />
+    <item
+        android:id="@+id/aboutUs"
+        android:icon="@drawable/ic_about"
+        android:orderInCategory="1"
+        android:title="@string/aboutUs"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/item_64kb"
         android:title="@string/_64kb"
+        android:icon="@null"
+        app:showAsAction="never"
+        android:orderInCategory="3"
         />
     <item
-        android:id="@+id/_128kb"
+        android:id="@+id/item_128kb"
         android:title="@string/_128kb"
+        android:icon="@null"
+        app:showAsAction="never"
+        android:orderInCategory="4"
         />
     <item
-        android:id="@+id/_192kb"
+        android:id="@+id/item_192kb"
         android:title="@string/_192kb"
+        android:icon="@null"
+        app:showAsAction="never"
+        android:orderInCategory="5"
         />
     <item
-        android:id="@+id/_320kb"
+        android:id="@+id/item_320kb"
         android:title="@string/_320kb"
+        android:icon="@null"
+        app:showAsAction="never"
+        android:orderInCategory="6"
         />
 </menu>

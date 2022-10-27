@@ -25,20 +25,19 @@ class MainActivity : AppCompatActivity(), Player.Listener {
         setContentView(binding.root)
         titleSongs = binding.tvSongs
         customToolbar = binding.customToolbar
-        customToolbar.inflateMenu(R.menu.share_menu)
         customToolbar.inflateMenu(R.menu.bitrate_menu)
         customToolbar.setOnMenuItemClickListener{
             when (it.itemId){
-                R.id._64kb -> {
+                R.id.item_64kb -> {
                     Toast.makeText(this, "64kb", Toast.LENGTH_SHORT).show()
                 }
-                R.id._128kb -> {
+                R.id.item_128kb -> {
                     Toast.makeText(this, "128kb", Toast.LENGTH_SHORT).show()
                 }
-                R.id._192kb -> {
+                R.id.item_192kb -> {
                     Toast.makeText(this, "192kb", Toast.LENGTH_SHORT).show()
                 }
-                R.id._320kb -> {
+                R.id.item_320kb -> {
                     Toast.makeText(this, "320kb", Toast.LENGTH_SHORT).show()
                 }
                 R.id.share -> {
@@ -54,6 +53,10 @@ class MainActivity : AppCompatActivity(), Player.Listener {
                     // passing subject of the content
                     sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject)
                     startActivity(Intent.createChooser(sharingIntent, "Share using"))
+                }
+                R.id.aboutUs -> {
+                    val intent = Intent(this, Contacts::class.java)
+                    startActivity(intent)
                 }
             }
             return@setOnMenuItemClickListener true

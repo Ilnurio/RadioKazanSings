@@ -15,11 +15,14 @@
         android:layout_height="wrap_content"
         android:background="@color/custom"
         android:elevation="30dp"
-        android:gravity="center"
+        android:theme="@style/Theme.RadioKazanSings.ToolBarStyle"
+        app:layout_constraintBottom_toTopOf="@+id/ib_dislike"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:theme="@style/Theme.RadioKazanSings.ToolBarStyle">
+        app:layout_constraintVertical_bias="0.0"
+        app:popupTheme="@style/myCustomPopupTheme">
 
 
         <TextView
@@ -40,12 +43,13 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/ib_dislike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="168dp"
         android:background="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,13 +58,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat_extrabold"
         android:text="@string/loading"
         android:textColor="@color/white"
         android:textSize="16sp"
-        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintTop_toBottomOf="@+id/ib_dislike" />
 
     <ImageView
         android:id="@+id/im_play"
@@ -71,6 +75,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_songs" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:adjustViewBounds="true"
+        android:background="@color/custom"
+        android:maxWidth="50dp"
+        android:maxHeight="50dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/im_play"
+        app:layout_constraintEnd_toStartOf="@+id/im_play"
+        app:layout_constraintTop_toTopOf="@+id/im_play"
+        app:srcCompat="@drawable/dislike" />
+
+    <ImageButton
+        android:id="@+id/ib_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@color/custom"
+        android:adjustViewBounds="true"
+        android:maxWidth="50dp"
+        android:maxHeight="50dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/im_play"
+        app:layout_constraintStart_toEndOf="@+id/im_play"
+        app:layout_constraintTop_toTopOf="@+id/im_play"
+        app:srcCompat="@drawable/like" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

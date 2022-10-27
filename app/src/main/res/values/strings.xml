@@ -7,5 +7,12 @@
     <string name="name_toolbar">Казань Поет</string>
     <string name="_1">Дорожка 1</string>
     <string name="loading">...</string>
-    <string name="share_body">Слушайте первое музыкальное онлайн-радио в Татарстане. Здесь звучат песни, которые больше нигде не звучат.</string>
+    <string name="share_body">Слушайте первое музыкальное онлайн-радио в Татарстане.
+        Здесь звучат песни, которые больше нигде не звучат.</string>
+    <string name="share">share</string>
+    <string name="aboutUs">about Us</string>
+    <string name="Contacts">Контакты</string>
+    <string name="link">kazansings.ru</string>
+    <string name="email">production@kazansings.ru</string>
+    <string name="vk">Группа в VK</string>
 </resources>
