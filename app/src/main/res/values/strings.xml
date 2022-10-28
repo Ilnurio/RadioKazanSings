@@ -12,7 +12,9 @@
     <string name="share">share</string>
     <string name="aboutUs">about Us</string>
     <string name="Contacts">Контакты</string>
-    <string name="link">kazansings.ru</string>
-    <string name="email">production@kazansings.ru</string>
-    <string name="vk">Группа в VK</string>
+    <string name="link"><a href="https://www.kazansings.ru">kazansings.ru</a> </string>
+    <string name="email"><a href="https://www.production@kazansings.ru">production@kazansings.ru</a> </string>
+    <string name="vk"><a href="https://vk.me/join/AJQ1dxSPjSPs_1X5AHsBqPnf">Группа в VK</a> </string>
+    <string name="wtsapp"><a href="https://chat.whatsapp.com/DcYXYr39xVLEbu9wGQtB5u">Группа в WhatsApp</a> </string>
+    <string name="tg"><a href="https://t.me/kazanpoet">Группа в tg</a> </string>
 </resources>

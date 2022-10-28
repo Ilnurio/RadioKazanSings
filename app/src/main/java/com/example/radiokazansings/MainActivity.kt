@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
     private lateinit var titleSongs: TextView
     private lateinit var customToolbar: Toolbar
 
-    var audioUrl = "https://av.bimradio.ru/bim_mp3_128k"
+    var audioUrl = "https://stream01.hitv.ru:8443/kazansings-320kb"
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +75,13 @@ class MainActivity : AppCompatActivity(), Player.Listener {
                     R.drawable.image_play
                 }
             )
+        }
+
+        binding.ibLike.setOnClickListener{
+            Toast.makeText(this, "Like", Toast.LENGTH_SHORT).show()
+        }
+        binding.ibDislike.setOnClickListener {
+            Toast.makeText(this, "Dislike", Toast.LENGTH_SHORT).show()
         }
 
         if (savedInstanceState != null){
