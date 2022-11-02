@@ -66,6 +66,8 @@ class MainActivity : AppCompatActivity(), Player.Listener {
         addStreamUrl()
 
         binding.imPlay.setOnClickListener {
+            ForegroundService.startService(this, "Is playing")
+
             player.playWhenReady = !player.playWhenReady
             binding.tvSongs.text = if (player.playWhenReady) "Is Playing" else "Paused"
             binding.imPlay.setImageResource(
@@ -75,12 +77,15 @@ class MainActivity : AppCompatActivity(), Player.Listener {
                     R.drawable.image_play
                 }
             )
+            if (!player.playWhenReady){
+                ForegroundService.stopService(this)
+            }
         }
 
         binding.ibLike.setOnClickListener{
             Toast.makeText(this, "Like", Toast.LENGTH_SHORT).show()
         }
-        binding.ibDislike.setOnClickListener {
+        binding.ibInfo.setOnClickListener {
             Toast.makeText(this, "Dislike", Toast.LENGTH_SHORT).show()
         }
 
