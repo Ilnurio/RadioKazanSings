@@ -12,11 +12,10 @@ import com.google.android.exoplayer2.*
 
 class MainActivity : AppCompatActivity(), Player.Listener {
     lateinit var binding: ActivityMainBinding
-    private lateinit var player: ExoPlayer
     private lateinit var titleSongs: TextView
     private lateinit var customToolbar: Toolbar
-
-    var audioUrl = "https://stream01.hitv.ru:8443/kazansings-320kb"
+    private var isPlaying: Boolean = false
+    //var audioUrl = "https://stream01.hitv.ru:8443/kazansings-320kb"
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
                     // Body of the content
                     val shareBody = getString(R.string.share_body)
                     // subject of the content. you can share anything
-                    val shareSubject = R.drawable.logo
+                    val shareSubject = R.drawable.logo_new
                     // passing body of the content
                     sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
                     // passing subject of the content
@@ -62,60 +61,25 @@ class MainActivity : AppCompatActivity(), Player.Listener {
             return@setOnMenuItemClickListener true
         }
 
-        setUpPlayer()
-        addStreamUrl()
-
         binding.imPlay.setOnClickListener {
-            ForegroundService.startService(this, "Is playing")
-
-            player.playWhenReady = !player.playWhenReady
-            binding.tvSongs.text = if (player.playWhenReady) "Is Playing" else "Paused"
+            isPlaying = !isPlaying
+            ForegroundService.startService(this, "Is playing", isPlaying)
             binding.imPlay.setImageResource(
-                if (player.playWhenReady) {
+                if (isPlaying) {
                     R.drawable.image_pause
                 } else {
                     R.drawable.image_play
                 }
             )
-            if (!player.playWhenReady){
-                ForegroundService.stopService(this)
-            }
         }
 
         binding.ibLike.setOnClickListener{
             Toast.makeText(this, "Like", Toast.LENGTH_SHORT).show()
         }
         binding.ibInfo.setOnClickListener {
-            Toast.makeText(this, "Dislike", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, Information::class.java)
+            startActivity(intent)
         }
-
-        if (savedInstanceState != null){
-            savedInstanceState.getInt("MediaItem").let { restoredMedia ->
-                val seekTime = savedInstanceState.getLong("SeekTime")
-                player.seekTo(restoredMedia, seekTime)
-            }
-        }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putLong("SeekTime", player.currentPosition)
-        outState.putInt("MediaItem", player.currentMediaItemIndex)
-    }
-
-    private fun setUpPlayer(){
-        player = ExoPlayer.Builder(this).build()
-        player.addListener(this)
-    }
-
-    private fun addStreamUrl(){
-        val mediaItem = MediaItem.fromUri(audioUrl)
-        player.addMediaItem(mediaItem)
-        player.prepare()
-    }
-
-    override fun onMediaMetadataChanged(mediaMetadata: MediaMetadata) {
-        super.onMediaMetadataChanged(mediaMetadata)
     }
 }
 

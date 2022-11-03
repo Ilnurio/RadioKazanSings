@@ -8,7 +8,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 
-class RemoteWork: Application(), LifecycleObserver {
+/*class RemoteWork: Application(), LifecycleObserver {
     override fun onCreate() {
         super.onCreate()
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
@@ -34,3 +34,5 @@ class RemoteWork: Application(), LifecycleObserver {
          return
     }
 }
+
+ */
