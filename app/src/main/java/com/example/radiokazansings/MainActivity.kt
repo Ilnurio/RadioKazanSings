@@ -1,7 +1,10 @@
 package com.example.radiokazansings
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -16,6 +19,14 @@ class MainActivity : AppCompatActivity(), Player.Listener {
     private lateinit var customToolbar: Toolbar
     private var isPlaying: Boolean = false
     //var audioUrl = "https://stream01.hitv.ru:8443/kazansings-320kb"
+
+    private val playButtonStatusBroadcastReceiver = object :BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            isPlaying = intent?.getBooleanExtra("isPlaying", false) == true
+            updatePlayButton()
+        }
+
+    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,16 +72,13 @@ class MainActivity : AppCompatActivity(), Player.Listener {
             return@setOnMenuItemClickListener true
         }
 
+        isPlaying = intent.getBooleanExtra("isPlaying", false)
+        updatePlayButton()
+
         binding.imPlay.setOnClickListener {
             isPlaying = !isPlaying
             ForegroundService.startService(this, "Is playing", isPlaying)
-            binding.imPlay.setImageResource(
-                if (isPlaying) {
-                    R.drawable.image_pause
-                } else {
-                    R.drawable.image_play
-                }
-            )
+            updatePlayButton()
         }
 
         binding.ibLike.setOnClickListener{
@@ -80,7 +88,30 @@ class MainActivity : AppCompatActivity(), Player.Listener {
             val intent = Intent(this, Information::class.java)
             startActivity(intent)
         }
+        registerReceiver(playButtonStatusBroadcastReceiver, IntentFilter("UpdatePlayerButton"))
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(playButtonStatusBroadcastReceiver)
+    }
+
+    private fun updatePlayButton() {
+        binding.imPlay.setImageResource(
+            if (isPlaying) {
+                R.drawable.image_pause
+            } else {
+                R.drawable.image_play
+            }
+        )
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        isPlaying = intent?.getBooleanExtra("isPlaying", false) == true
+        updatePlayButton()
+    }
+
 }
 
 

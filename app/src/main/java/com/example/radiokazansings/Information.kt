@@ -24,10 +24,10 @@ class Information : AppCompatActivity() {
         textView.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
 
         customToolbar = binding.customToolbar2
-        customToolbar.inflateMenu(R.menu.bitrate_menu)
+        customToolbar.inflateMenu(R.menu.menu_for_information)
         customToolbar.setOnMenuItemClickListener{
             when (it.itemId){
-                R.id.share -> {
+                R.id.share2 -> {
                     val sharingIntent = Intent(Intent.ACTION_SEND)
                     // type of the content to be shared
                     sharingIntent.type = "text/plain"
