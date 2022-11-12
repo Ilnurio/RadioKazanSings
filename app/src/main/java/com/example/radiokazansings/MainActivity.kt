@@ -1,17 +1,24 @@
 package com.example.radiokazansings
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.example.radiokazansings.databinding.ActivityMainBinding
-import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.Player
 
 class MainActivity : AppCompatActivity(), Player.Listener {
     lateinit var binding: ActivityMainBinding
@@ -19,7 +26,11 @@ class MainActivity : AppCompatActivity(), Player.Listener {
     private lateinit var customToolbar: Toolbar
     //var audioUrl = "https://stream01.hitv.ru:8443/kazansings-320kb"
 
-    private val playButtonStatusBroadcastReceiver = object :BroadcastReceiver() {
+    val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { }
+
+    private val playButtonStatusBroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             updatePlayButton()
         }
@@ -34,8 +45,8 @@ class MainActivity : AppCompatActivity(), Player.Listener {
         titleSongs = binding.tvSongs
         customToolbar = binding.customToolbar
         customToolbar.inflateMenu(R.menu.bitrate_menu)
-        customToolbar.setOnMenuItemClickListener{
-            when (it.itemId){
+        customToolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
                 R.id.item_64kb -> {
                     Toast.makeText(this, "64kb", Toast.LENGTH_SHORT).show()
                 }
@@ -63,7 +74,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
                     startActivity(Intent.createChooser(sharingIntent, "Share using"))
                 }
                 R.id.aboutUs -> {
-                    val intent = Intent(this, Contacts::class.java)
+                    val intent = Intent(this, ContactsActivity::class.java)
                     startActivity(intent)
                 }
             }
@@ -79,14 +90,18 @@ class MainActivity : AppCompatActivity(), Player.Listener {
             updatePlayButton()
         }
 
-        binding.ibLike.setOnClickListener{
+        binding.ibLike.setOnClickListener {
             Toast.makeText(this, "Like", Toast.LENGTH_SHORT).show()
         }
         binding.ibInfo.setOnClickListener {
-            val intent = Intent(this, Information::class.java)
+            val intent = Intent(this, InformationActivity::class.java)
             startActivity(intent)
         }
-        registerReceiver(playButtonStatusBroadcastReceiver, IntentFilter(ACTION_UPDATE_PLAYER_BUTTONS))
+        registerReceiver(
+            playButtonStatusBroadcastReceiver,
+            IntentFilter(ACTION_UPDATE_PLAYER_BUTTONS)
+        )
+        checkShowPermissionDialog()
     }
 
     override fun onStart() {
@@ -112,6 +127,26 @@ class MainActivity : AppCompatActivity(), Player.Listener {
                 R.drawable.image_play
             }
         )
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun checkShowPermissionDialog() {
+        if (
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        AlertDialog.Builder(this)
+            .setMessage("Разрешить показ плеера Казань поет как уведомление?")
+            .setPositiveButton("Да") { _, _ ->
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+            .setNegativeButton("Отмена") { _, _ ->
+
+            }.show()
     }
 
     override fun onNewIntent(intent: Intent?) {

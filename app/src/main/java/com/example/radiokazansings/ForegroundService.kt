@@ -126,9 +126,9 @@ class ForegroundService : Service() {
             )
             .addAction(
                 if (isRadioPlaying()) {
-                    R.drawable.image_pause
+                    R.drawable.image_pause_notif
                 } else {
-                    R.drawable.image_play
+                    R.drawable.image_play_notif
                 }, "Play",
                 playServicePendingUpdateIntent
             )

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/custom"
-    tools:context=".Contacts">
+    tools:context=".ContactsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/custom_toolbar2"

@@ -20,14 +20,14 @@
     android:theme="@style/Theme.RadioKazanSings"
     tools:targetApi="31">
     <activity
-      android:name=".Information"
+      android:name=".InformationActivity"
       android:exported="false"
       android:screenOrientation="portrait" />
 
     <service android:name=".ForegroundService" />
 
     <activity
-      android:name=".Contacts"
+      android:name=".ContactsActivity"
       android:exported="true"
       android:screenOrientation="portrait" />
     <activity
