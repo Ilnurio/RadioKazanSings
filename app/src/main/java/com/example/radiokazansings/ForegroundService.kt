@@ -5,7 +5,6 @@ import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
@@ -13,9 +12,12 @@ import android.os.IBinder
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.PRIORITY_HIGH
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import androidx.media.session.MediaButtonReceiver
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -24,8 +26,11 @@ import com.google.android.exoplayer2.MediaItem
 class ForegroundService : Service() {
     private val CHANNEL_ID = "ForegroundServiceKotlin"
     private lateinit var player: ExoPlayer
-    var audioUrl = "https://av.bimradio.ru/bim_mp3_128k"
+    //var audioUrl = "https://av.bimradio.ru/bim_mp3_128k"
+    var audioUrl = "https://stream01.hitv.ru:8443/kazansings-320kb"
     private var picture: Bitmap? = null
+
+    //val notificationLayout = RemoteViews(packageName, R.layout.custom_navigation_player)
 
     companion object {
         fun startService(context: Context, message: String, isPlaying: Boolean) {
@@ -48,7 +53,7 @@ class ForegroundService : Service() {
         player.prepare()
     }
 
-    @SuppressLint("RemoteViewLayout")
+    @SuppressLint("RemoteViewLayout", "UnspecifiedImmutableFlag", "ResourceAsColor")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d("ForegroundService::", "onStartCommand")
         val input = intent?.getStringExtra("message")
@@ -57,12 +62,11 @@ class ForegroundService : Service() {
         createNotificationChannel()
 
         val notificationIntent = Intent(this, MainActivity::class.java)
-        notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         notificationIntent.putExtra("isPlaying", isPlaying)
 
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-
 
         val playServiceIntent = Intent(this, ForegroundService::class.java)
         playServiceIntent.putExtra("isPlaying", !isPlaying)
@@ -82,32 +86,28 @@ class ForegroundService : Service() {
 
         val dismissIn = Intent("dismiss")
         dismissIn.addCategory("dismiss_category")
+
         val dismissIntent = PendingIntent.getBroadcast(
             this, 1,
             dismissIn, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
         picture = if (resources != null) BitmapFactory.decodeResource(resources,R.drawable.im_logo_statusbar_notif) else null
         val mediaSession = MediaSessionCompat(this, "tag")
-        //val controller = mediaSession.controller
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setSmallIcon(R.drawable.small_icon_notification)
             .setPriority(PRIORITY_HIGH)
-            //.setContentIntent(controller.sessionActivity)
             .setContentIntent(pendingIntent)
             .setContentText(input)
-            .setOngoing(false)
-            //.setAutoCancel(!isPlaying)
             .setContentTitle("Онлайн-радио")
             .setContentText("Казань поет")
-            /*.setDeleteIntent(
-            MediaButtonReceiver.buildMediaButtonPendingIntent(
-                this,
-                PlaybackStateCompat.ACTION_STOP
-            )
-        )*/
-           // .setDeleteIntent(dismissIntent)
+            .setOngoing(isPlaying)
+            //.setDeleteIntent(MediaButtonReceiver.buildMediaButtonPendingIntent(this, PlaybackStateCompat.ACTION_STOP))
+            .setCategory(NotificationCompat.CATEGORY_PROGRESS)
             .setLargeIcon(picture)
+            .setStyle(androidx.media.app.NotificationCompat.MediaStyle()
+               .setShowActionsInCompactView(0)
+                .setMediaSession(mediaSession.sessionToken))
             .addAction(if (isPlaying) {
                 R.drawable.image_pause
             } else {
@@ -115,10 +115,7 @@ class ForegroundService : Service() {
             }
                 , "Play",
                 playServicePendingIntent)
-            .setStyle(androidx.media.app.NotificationCompat.MediaStyle()
-                .setShowActionsInCompactView(1)
-                /*.setMediaSession(mediaSession.sessionToken)*/)
-
+            .setDeleteIntent(dismissIntent)
             .build()
 
       /*  if (isPlaying) {
@@ -130,8 +127,12 @@ class ForegroundService : Service() {
         //unregisterReceiver(dismissBroadcastReceiver)
        // registerReceiver(dismissBroadcastReceiver, IntentFilter("dismiss"))
 
+
+        //NotificationManagerCompat.from(this).notify(1, notification)
+
         startForeground(1, notification)
-        return super.onStartCommand(intent, flags, startId)
+
+        return START_STICKY
     }
 
     override fun onBind(intent: Intent): IBinder? {

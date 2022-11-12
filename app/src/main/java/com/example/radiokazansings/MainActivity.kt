@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
         binding.imPlay.setOnClickListener {
             isPlaying = !isPlaying
             ForegroundService.startService(this, "Is playing", isPlaying)
-            titleSongs.text = if (isPlaying) "Is Playing" else "Is paused"
+            titleSongs.text = if (isPlaying) "Is Playing" else "Is Paused"
             updatePlayButton()
         }
 

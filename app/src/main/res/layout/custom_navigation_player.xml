@@ -2,63 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="100dp"
+    android:background="@color/custom"
     android:minHeight="120dp"
-    android:weightSum="100"
     android:orientation="horizontal"
-    android:background="@color/custom">
-
-    <ImageView
-        android:id="@+id/iv_logo_statusbar"
-        android:layout_width="156dp"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logo_new" />
+    android:weightSum="100">
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="2dp"
-            android:fontFamily="@font/montserrat_extrabold"
-            android:text="@string/loading"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imb_play"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="30dp"
-            android:layout_weight="1"
+            android:id="@+id/imageButton"
+            android:layout_width="302dp"
+            android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:background="@color/custom"
-            android:maxWidth="60dp"
-            android:maxHeight="60dp"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
             android:scaleType="fitCenter"
+            android:layout_gravity="center_vertical"
             app:srcCompat="@drawable/image_play" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_notif"
+            android:layout_width="272dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|end"
+            android:layout_weight="1"
+            android:elevation="30dp"
+            app:srcCompat="@drawable/im_logo_statusbar_notif" />
 
-    <ImageButton
-        android:id="@+id/imb_like"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:adjustViewBounds="true"
-        android:background="@color/custom"
-        android:maxWidth="50dp"
-        android:maxHeight="50dp"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/like" />
+    </LinearLayout>
 
 </LinearLayout>
