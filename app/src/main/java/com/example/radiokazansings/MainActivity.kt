@@ -17,12 +17,10 @@ class MainActivity : AppCompatActivity(), Player.Listener {
     lateinit var binding: ActivityMainBinding
     private lateinit var titleSongs: TextView
     private lateinit var customToolbar: Toolbar
-    private var isPlaying: Boolean = false
     //var audioUrl = "https://stream01.hitv.ru:8443/kazansings-320kb"
 
     private val playButtonStatusBroadcastReceiver = object :BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            isPlaying = intent?.getBooleanExtra("isPlaying", false) == true
             updatePlayButton()
         }
 
@@ -72,13 +70,12 @@ class MainActivity : AppCompatActivity(), Player.Listener {
             return@setOnMenuItemClickListener true
         }
 
-        isPlaying = intent.getBooleanExtra("isPlaying", false)
         updatePlayButton()
 
         binding.imPlay.setOnClickListener {
-            isPlaying = !isPlaying
-            ForegroundService.startService(this, "Is playing", isPlaying)
-            titleSongs.text = if (isPlaying) "Is Playing" else "Is Paused"
+            getRadioPlayer().playWhenReady = !getRadioPlayer().playWhenReady
+            ForegroundService.startService(this, "Is playing")
+            titleSongs.text = if (isRadioPlaying()) "Is Playing" else "Is Paused"
             updatePlayButton()
         }
 
@@ -89,7 +86,17 @@ class MainActivity : AppCompatActivity(), Player.Listener {
             val intent = Intent(this, Information::class.java)
             startActivity(intent)
         }
-        registerReceiver(playButtonStatusBroadcastReceiver, IntentFilter("UpdatePlayerButton"))
+        registerReceiver(playButtonStatusBroadcastReceiver, IntentFilter(ACTION_UPDATE_PLAYER_BUTTONS))
+    }
+
+    override fun onStart() {
+        super.onStart()
+        getRadioPlayer().attach()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        getRadioPlayer().detach()
     }
 
     override fun onDestroy() {
@@ -99,7 +106,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
 
     private fun updatePlayButton() {
         binding.imPlay.setImageResource(
-            if (isPlaying) {
+            if (isRadioPlaying()) {
                 R.drawable.image_pause
             } else {
                 R.drawable.image_play
@@ -109,10 +116,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        isPlaying = intent?.getBooleanExtra("isPlaying", false) == true
         updatePlayButton()
     }
-
 }
-
 
