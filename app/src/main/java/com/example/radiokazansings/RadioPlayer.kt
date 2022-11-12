@@ -7,8 +7,8 @@ import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 
 
-private const val AUDIO_URL = "https://av.bimradio.ru/bim_mp3_128k"
-// private const val AUDIO_URL = "https://stream01.hitv.ru:8443/kazansings-320kb"
+// private const val AUDIO_URL = "https://av.bimradio.ru/bim_mp3_128k"
+private const val AUDIO_URL = "https://stream01.hitv.ru:8443/kazansings-320kb"
 
 class RadioPlayer(private val context: Context) {
 
