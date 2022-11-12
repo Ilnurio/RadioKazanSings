@@ -1,10 +1,7 @@
 package com.example.radiokazansings
 
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.app.Service
+import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -21,9 +18,11 @@ import androidx.core.content.ContextCompat
 
 private const val UPDATE_PLAYING_STATE = "UpdatePlayingStateTo"
 const val ACTION_UPDATE_PLAYER_BUTTONS = "UpdatePlayerButton"
+private const val PLAYER_NOTIFICATION_ID = 1
+private const val KEY_IS_PLAYING = "isPlaying"
+private const val CHANNEL_ID = "ForegroundServiceKotlin"
 
 class ForegroundService : Service() {
-    private val CHANNEL_ID = "ForegroundServiceKotlin"
 
     private var picture: Bitmap? = null
 
@@ -34,10 +33,6 @@ class ForegroundService : Service() {
             ContextCompat.startForegroundService(context, startIntent)
         }
 
-        fun stopService(context: Context) {
-            val stopIntent = Intent(context, ForegroundService::class.java)
-            context.stopService(stopIntent)
-        }
     }
 
     @SuppressLint("RemoteViewLayout", "UnspecifiedImmutableFlag", "ResourceAsColor")
@@ -51,11 +46,21 @@ class ForegroundService : Service() {
 
         if (intent?.hasExtra(UPDATE_PLAYING_STATE) == true) {
             sendBroadcast(
-                Intent(ACTION_UPDATE_PLAYER_BUTTONS).putExtra("isPlaying", isRadioPlaying())
+                Intent(ACTION_UPDATE_PLAYER_BUTTONS).putExtra(KEY_IS_PLAYING, isRadioPlaying())
             )
             getRadioPlayer().playWhenReady = !isRadioPlaying()
         }
+        val notification = createNotification(notificationIntent, input)
 
+        startForeground(PLAYER_NOTIFICATION_ID, notification)
+
+        return super.onStartCommand(intent, flags, startId)
+    }
+
+    private fun createNotification(
+        notificationIntent: Intent,
+        input: String?
+    ): Notification {
         val pendingIntent = PendingIntent.getActivity(
             this, 0, notificationIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
@@ -104,7 +109,7 @@ class ForegroundService : Service() {
             .setStyle(
                 androidx.media.app.NotificationCompat.MediaStyle()
                     .setShowActionsInCompactView(0)
-                    .setMediaSession(mediaSession.sessionToken)
+                    /*.setMediaSession(mediaSession.sessionToken)*/
             )
             .addAction(
                 if (isRadioPlaying()) {
@@ -116,29 +121,23 @@ class ForegroundService : Service() {
             )
             .setDeleteIntent(dismissIntent)
             .build()
-
-        startForeground(1, notification)
-
-        return START_STICKY
+        return notification
     }
 
     override fun onBind(intent: Intent): IBinder? {
         return null
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val Channel_1 = NotificationChannel(
-                CHANNEL_ID, "Foreground Service Channel",
+            val channel = NotificationChannel(
+                CHANNEL_ID, "Kazan radio notification",
                 NotificationManager.IMPORTANCE_HIGH
             )
-            Channel_1.setSound(null, null)
-            val manager = getSystemService(NotificationManager::class.java)
-            manager!!.createNotificationChannel(Channel_1)
+            channel.setSound(null, null)
+            getSystemService(NotificationManager::class.java).apply {
+                createNotificationChannel(channel)
+            }
         }
     }
 }
