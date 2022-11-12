@@ -20,6 +20,8 @@ class InformationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityInformationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+       // textView.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
+
         customToolbar = binding.customToolbar2
         customToolbar.inflateMenu(R.menu.menu_for_information)
         customToolbar.setOnMenuItemClickListener{
