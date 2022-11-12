@@ -89,6 +89,16 @@ class MainActivity : AppCompatActivity(), Player.Listener {
         registerReceiver(playButtonStatusBroadcastReceiver, IntentFilter(ACTION_UPDATE_PLAYER_BUTTONS))
     }
 
+    override fun onStart() {
+        super.onStart()
+        getRadioPlayer().attach()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        getRadioPlayer().detach()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(playButtonStatusBroadcastReceiver)

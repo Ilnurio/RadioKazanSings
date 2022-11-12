@@ -6,6 +6,7 @@
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
   <application
     android:name=".KazanRadioApplication"
@@ -40,15 +41,6 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-
-    <receiver
-      android:name=".DismissReceiver"
-      android:exported="false">
-      <intent-filter>
-        <action android:name="dismiss" />
-        <category android:name="dismiss_category" />
-      </intent-filter>
-    </receiver>
 
     <meta-data
       android:name="preloaded_fonts"

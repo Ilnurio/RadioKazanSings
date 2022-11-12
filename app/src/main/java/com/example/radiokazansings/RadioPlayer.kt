@@ -10,22 +10,40 @@ import com.google.android.exoplayer2.MediaItem
 private const val AUDIO_URL = "https://av.bimradio.ru/bim_mp3_128k"
 // private const val AUDIO_URL = "https://stream01.hitv.ru:8443/kazansings-320kb"
 
-class RadioPlayer(context: Context) {
+class RadioPlayer(private val context: Context) {
 
-    private val player: ExoPlayer
+    private var player: ExoPlayer? = null
+    private var numberOfActiveClients = 0
 
-    init {
-        player = ExoPlayer.Builder(context).build()
-        val mediaItem = MediaItem.fromUri(AUDIO_URL)
-        player.addMediaItem(mediaItem)
-        player.prepare()
+    fun attach() {
+        numberOfActiveClients++
+        if (numberOfActiveClients == 1) {
+            initPlayer()
+        }
+    }
+
+    fun detach() {
+        numberOfActiveClients--
+        if (numberOfActiveClients == 0) {
+            player?.release()
+            player = null
+        }
     }
 
     var playWhenReady
-        get() = player.playWhenReady
+        get() = player?.playWhenReady == true
         set(value) {
-            player.playWhenReady = value
+            player?.playWhenReady = value
         }
+
+    private fun initPlayer() {
+        player = ExoPlayer.Builder(context).build().apply {
+            val mediaItem = MediaItem.fromUri(AUDIO_URL)
+            addMediaItem(mediaItem)
+            prepare()
+        }
+
+    }
 
 }
 
