@@ -11,7 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import com.example.radiokazansings.databinding.ActivityInformationBinding
 
 
-class Information : AppCompatActivity() {
+class InformationActivity : AppCompatActivity() {
     lateinit var binding: ActivityInformationBinding
     private lateinit var customToolbar: Toolbar
 
@@ -20,9 +20,6 @@ class Information : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityInformationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val textView = binding.information
-        textView.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
-
         customToolbar = binding.customToolbar2
         customToolbar.inflateMenu(R.menu.menu_for_information)
         customToolbar.setOnMenuItemClickListener{
