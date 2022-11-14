@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
 
     }
 
+    @RequiresApi(33)
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +88,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
             getRadioPlayer().playWhenReady = !getRadioPlayer().playWhenReady
             ForegroundService.startService(this, "Is playing")
             titleSongs.text = if (isRadioPlaying()) "Is Playing" else "Is Paused"
+            //throw RuntimeException("Test Crash")
             updatePlayButton()
         }
 
