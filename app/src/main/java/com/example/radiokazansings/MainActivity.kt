@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity(), Player.Listener {
     lateinit var binding: ActivityMainBinding
     private lateinit var titleSongs: TextView
     private lateinit var customToolbar: Toolbar
-    //var audioUrl = "https://stream01.hitv.ru:8443/kazansings-320kb"
 
     val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()

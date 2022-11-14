@@ -4,9 +4,9 @@ import android.app.Application
 
 class KazanRadioApplication: Application() {
     private lateinit var player: RadioPlayer
-
     override fun onCreate() {
         super.onCreate()
+        RemoteConfigUtils(this).init()
         player = RadioPlayer(this)
     }
 
