@@ -53,7 +53,7 @@ class RadioPlayer(private val context: Context) {
     }
 
     fun onNewUrlReceived(url: String) {
-        if (url != audioUrl) {
+        if (url != audioUrl && url.isNotEmpty()) {
             audioUrl = url
             if (player != null) {
                 player?.removeMediaItem(0)
