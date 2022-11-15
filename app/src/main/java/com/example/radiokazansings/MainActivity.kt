@@ -48,15 +48,19 @@ class MainActivity : AppCompatActivity(), Player.Listener {
         customToolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.item_64kb -> {
+                    getRadioPlayer().bitrate = Bitrate.bitrate64
                     Toast.makeText(this, "64kb", Toast.LENGTH_SHORT).show()
                 }
                 R.id.item_128kb -> {
+                    getRadioPlayer().bitrate = Bitrate.bitrate128
                     Toast.makeText(this, "128kb", Toast.LENGTH_SHORT).show()
                 }
                 R.id.item_192kb -> {
+                    getRadioPlayer().bitrate = Bitrate.bitrate192
                     Toast.makeText(this, "192kb", Toast.LENGTH_SHORT).show()
                 }
                 R.id.item_320kb -> {
+                    getRadioPlayer().bitrate = Bitrate.bitrate320
                     Toast.makeText(this, "320kb", Toast.LENGTH_SHORT).show()
                 }
                 R.id.share -> {

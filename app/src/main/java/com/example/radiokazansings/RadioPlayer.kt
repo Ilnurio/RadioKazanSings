@@ -7,15 +7,36 @@ import android.util.Log
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 
-
-// private const val AUDIO_URL = "https://av.bimradio.ru/bim_mp3_128k"
-
-private const val DEFAULT_URL = "https://stream01.hitv.ru:8443/kazansings-320kb"
-
 class RadioPlayer(private val context: Context) {
     private var player: ExoPlayer? = null
     private var numberOfActiveClients = 0
-    private var audioUrl = DEFAULT_URL
+
+    private var playerConfig = PlayerConfig(
+        url64 = "https://stream01.hitv.ru:8443/kazansings-64kb",
+        url128 = "https://stream01.hitv.ru:8443/kazansings-128kb",
+        url192 = "https://stream01.hitv.ru:8443/kazansings-192kb",
+        url320 = "https://stream01.hitv.ru:8443/kazansings-320kb"
+    )
+
+    var bitrate = Bitrate.bitrate320
+        set(value) {
+            val isPlaying = player?.isPlaying == true
+            field = value
+            if (player != null) {
+                releasePlayer()
+                initPlayer()
+            }
+            if (isPlaying) {
+                player?.playWhenReady = true
+            }
+        }
+
+    private fun getAudioUrl() = when (bitrate) {
+        Bitrate.bitrate64 -> playerConfig.url64
+        Bitrate.bitrate128 -> playerConfig.url128
+        Bitrate.bitrate192 -> playerConfig.url192
+        Bitrate.bitrate320 -> playerConfig.url320
+    }
 
     fun attach() {
         numberOfActiveClients++
@@ -28,9 +49,13 @@ class RadioPlayer(private val context: Context) {
     fun detach() {
         numberOfActiveClients--
         if (numberOfActiveClients == 0) {
-            player?.release()
-            player = null
+            releasePlayer()
         }
+    }
+
+    private fun releasePlayer() {
+        player?.release()
+        player = null
     }
 
     var playWhenReady
@@ -41,27 +66,47 @@ class RadioPlayer(private val context: Context) {
 
     private fun initPlayer() {
         player = ExoPlayer.Builder(context).build().apply {
-            initWIthNewUrl()
+            initWithNewUrl()
         }
 
     }
 
-    private fun ExoPlayer.initWIthNewUrl() {
-        val mediaItem = MediaItem.fromUri(audioUrl)
+    private fun ExoPlayer.initWithNewUrl() {
+        val mediaItem = MediaItem.fromUri(getAudioUrl())
         addMediaItem(mediaItem)
         prepare()
     }
 
-    fun onNewUrlReceived(url: String) {
-        if (url != audioUrl && url.isNotEmpty()) {
-            audioUrl = url
+    fun onPlayerConfigUpdated(playerConfig: PlayerConfig) {
+        val isPlaying = player?.playWhenReady == true
+        val currentUrl = getAudioUrl()
+        this.playerConfig = playerConfig
+        val newUrl = getAudioUrl()
+        if (currentUrl != newUrl) {
             if (player != null) {
-                player?.removeMediaItem(0)
-                player?.initWIthNewUrl()
+                releasePlayer()
+                initPlayer()
+            }
+            if (isPlaying) {
+                player?.playWhenReady = true
             }
         }
     }
 
+}
+
+data class PlayerConfig(
+    val url64: String,
+    val url128: String,
+    val url192: String,
+    val url320: String,
+)
+
+enum class Bitrate {
+    bitrate64,
+    bitrate128,
+    bitrate192,
+    bitrate320
 }
 
 fun Activity.isRadioPlaying() = application.getPlayer().playWhenReady
