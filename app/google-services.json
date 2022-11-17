@@ -33,6 +33,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309519371441:android:bd8d74c8d89a0880aa6690",
+        "android_client_info": {
+          "package_name": "com.kazan.radiosings"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309519371441-eu7u2tdejj291p02vei320jj89hfdjd4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8kUjY5WwvWyG8vUTQNf_AHkFgY-fQUgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309519371441-eu7u2tdejj291p02vei320jj89hfdjd4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
