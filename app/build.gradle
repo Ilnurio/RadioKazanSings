@@ -36,18 +36,6 @@ android {
         }
     }
 
-    /*productFlavors {
-
-        dev {
-            dimension 'test'
-        }
-
-        production {
-            dimension 'prod'
-            applicationId "com.kazan.radiosings"
-        }
-    }*/
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
