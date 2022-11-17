@@ -64,18 +64,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
                     Toast.makeText(this, "320kb", Toast.LENGTH_SHORT).show()
                 }
                 R.id.share -> {
-                    val sharingIntent = Intent(Intent.ACTION_SEND)
-                    // type of the content to be shared
-                    sharingIntent.type = "text/plain"
-                    // Body of the content
-                    val shareBody = getString(R.string.share_body)
-                    // subject of the content. you can share anything
-                    val shareSubject = R.drawable.logo_new
-                    // passing body of the content
-                    sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
-                    // passing subject of the content
-                    sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject)
-                    startActivity(Intent.createChooser(sharingIntent, "Share using"))
+                    share(this)
                 }
                 R.id.aboutUs -> {
                     val intent = Intent(this, ContactsActivity::class.java)
@@ -101,6 +90,9 @@ class MainActivity : AppCompatActivity(), Player.Listener {
         binding.ibInfo.setOnClickListener {
             val intent = Intent(this, InformationActivity::class.java)
             startActivity(intent)
+        }
+        binding.ibShare2.setOnClickListener {
+            share(this)
         }
         registerReceiver(
             playButtonStatusBroadcastReceiver,
@@ -158,5 +150,6 @@ class MainActivity : AppCompatActivity(), Player.Listener {
         super.onNewIntent(intent)
         updatePlayButton()
     }
+
 }
 

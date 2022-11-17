@@ -27,18 +27,7 @@ class InformationActivity : AppCompatActivity() {
         customToolbar.setOnMenuItemClickListener{
             when (it.itemId){
                 R.id.share2 -> {
-                    val sharingIntent = Intent(Intent.ACTION_SEND)
-                    // type of the content to be shared
-                    sharingIntent.type = "text/plain"
-                    // Body of the content
-                    val shareBody = getString(R.string.share_body)
-                    // subject of the content. you can share anything
-                    val shareSubject = R.drawable.logo_new
-                    // passing body of the content
-                    sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
-                    // passing subject of the content
-                    sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject)
-                    startActivity(Intent.createChooser(sharingIntent, "Share using"))
+                    share(this)
                 }
             }
             return@setOnMenuItemClickListener true
